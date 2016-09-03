@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Search = require('bing.search'); 
 var util = require('util');
-search = new Search('B+RaEHp46dc2tjBUALkwZh3zpb57BflxAi+ywCW3pUk');
+search = new Search(/*Redacted the API key*/);
 
 
 /* GET home page. */
