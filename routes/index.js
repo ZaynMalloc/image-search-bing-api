@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Search = require('bing.search'); //Loading Bing Search API
+var Search = require('bing.search'); 
 var util = require('util');
 search = new Search('B+RaEHp46dc2tjBUALkwZh3zpb57BflxAi+ywCW3pUk');
+
 
 /* GET home page. */
 
@@ -11,39 +12,18 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* Get image results  */
 
-//Search for Image
-router.get('/image/:term', function(req, res, next){
+router.get('/image/:image', function(req, res, next){
+
     
-  var db = req.db;
-  var history = db.get('history');
-  var typedTerm = req.params.term;
-   
-  history.insert({ 
-       
-    "searchedTerm": typedTerm
-       
-   
-   });
-   
-    
-  search.images(typedTerm, //Seaching Image using URL 
-  {top: 5}, //Show 5 results per page
+  search.images(req.params.image, //Search for images
+  {top: 5}, //Show 5 results
   function(err, results) {
-      
-    res.send(results); //Send JSON results of seach term
-      
+    res.send(results); //Display results
   }
 );
+    
 });
-          
-router.get('/history', function(req, res, next){
-    
-    
-    res.send(history);
-    
-}); 
-    
-
 
 module.exports = router;
